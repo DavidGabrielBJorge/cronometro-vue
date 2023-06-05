@@ -32,6 +32,7 @@ import { defineComponent } from 'vue'
 import CronometroAplicacao from './CronometroAplicacao.vue'
 export default defineComponent({
     name: 'TemporizadorControle',
+    emits:['aoTemporizadorFinalizado'],
     components:{
         CronometroAplicacao
     },
@@ -56,11 +57,14 @@ export default defineComponent({
 
         },
         parar(){
-            this.cronometroRodando =false;//Ao clicar para parar, o botão "parar" não será mais clicável
+            this.cronometroRodando = false;
             clearInterval(this.cronometro)
         },
         zerar(){
-            clearInterval(this.cronometro)
+            this.cronometroRodando =false;
+            clearInterval(this.cronometro)//Ao clicar para parar, o botão "parar" não será mais clicável
+            this.$emit('aoTemporizadorFinalizado', this.tempoEmSegundos)
+            this.tempoEmSegundos = 0//reseta o cronometro
         }
 
     }

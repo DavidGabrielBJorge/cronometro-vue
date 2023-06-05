@@ -3,12 +3,12 @@
         <div class="columns">
             <!--Coluna do título de cada rodada cronometrada-->
             <div class="column is-8" role="form" aria-label="Formulário para a criação de um novo título de cronômetro">
-                <input type="text" class="input" placeholder="Digite o título do seu cronômetro">
+                <input type="text" class="input" placeholder="Digite o título do seu cronômetro" v-model="descricao">
             </div>
 
             <!--Coluna do temporizador-->
             <div class="column">
-                <TemporizadorControle/>
+                <TemporizadorControle @aoTemporizadorFinalizado="finalizarAcao"/>
             </div>
         </div>
     </div>
@@ -22,6 +22,19 @@ export default defineComponent({
     components:{
         TemporizadorControle
     },
+    data(){
+        return{
+            descricao: ''
+        }
+    },
+    methods:{
+        //Ao terminar a contagem de uma ação deve armazenar seu tempo decorrido
+        finalizarAcao(tempoDecorrido: number): void{
+            console.log('Tempo da ação: ', tempoDecorrido)
+            console.log('Descrição da tarefa: ', this.descricao)
+            this.descricao = ''//Limpa o input
+        }
+    }
    
 })
 </script>
