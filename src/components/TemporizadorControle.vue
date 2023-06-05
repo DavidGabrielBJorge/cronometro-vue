@@ -3,21 +3,21 @@
                    
     <CronometroAplicacao :tempoEmSegundos="tempoEmSegundos"/><!--Indica que dentro do conponente Cronometro tem uma variavel chamada tempoEmSegundos que está sendo incrementada-->
 
-        <button class="button" @click="iniciar"><!--Ao clicar vai chamar a função iniciar-->
+        <button class="button" @click="iniciar" :disabled="cronometroRodando"><!--Ao clicar vai chamar a função iniciar-->
             <span class="icon">
             <i class="fas fa-play"></i>
             </span>
             <span>Iniciar</span>
         </button>
 
-        <button class="button" @click="parar">
+        <button class="button" @click="parar" :disabled="!cronometroRodando"><!--Linka o estado do botão com a variável "cronometroRodando", impedindo o usuário de clicar-->
             <span class="icon">
             <i class="fas fa-pause"></i>
             </span>
             <span>Parar</span>
         </button>
 
-        <button class="button" @click="zerar">
+        <button class="button" @click="zerar" :disabled="!cronometroRodando">
             <span class="icon">
             <i class="fas fa-stop"></i>
             </span>
@@ -31,7 +31,7 @@
 import { defineComponent } from 'vue'
 import CronometroAplicacao from './CronometroAplicacao.vue'
 export default defineComponent({
-    name: 'FormularioCronometro',
+    name: 'TemporizadorControle',
     components:{
         CronometroAplicacao
     },
@@ -41,19 +41,22 @@ export default defineComponent({
     data(){
         return{
             tempoEmSegundos: 0,
-            cronometro:0
+            cronometro:0,
+            cronometroRodando: false
         }
     },
     
     methods:{
         iniciar(){
             //setInterval é uma função do JavaScript que chama uma função em cada intervalo de tempo, no caso milisegundos
+            this.cronometroRodando = true;//O botão vai aparecer como clicável
             this.cronometro = setInterval(()=>{
                 this.tempoEmSegundos = this.tempoEmSegundos + 1;
             },1000)//1 seg = 1000 ms
 
         },
         parar(){
+            this.cronometroRodando =false;//Ao clicar para parar, o botão "parar" não será mais clicável
             clearInterval(this.cronometro)
         },
         zerar(){
