@@ -9,9 +9,8 @@
             <!--Coluna do temporizador-->
             <div class="column">
                 <div class="is-flex is-align-items-center is-justify-content-space-between">
-                    <section>
-                        {{ tempoDecorrido }}<!--O Vue não vai enxergar o tempoDecorrido como uma função mas sim uma propriedade do componente porém calculado-->
-                    </section>
+                   
+                    <CronometroAplicacao :tempoEmSegundos="tempoEmSegundos"/><!--Indica que dentro do conponente Cronometro tem uma variavel chamada tempoEmSegundos que está sendo incrementada-->
 
                     <button class="button" @click="iniciar"><!--Ao clicar vai chamar a função iniciar-->
                         <span class="icon">
@@ -41,9 +40,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import CronometroAplicacao from './CronometroAplicacao.vue'
 export default defineComponent({
     name: 'FormularioCronometro',
+    components:{
+        CronometroAplicacao
+    },
     //Métodos são as funções que são executadas quando o usuário interage com o site
 
     //Método que retorna um objeto que representa quais são as informções pertinentes para esse componente
@@ -51,19 +53,6 @@ export default defineComponent({
         return{
             tempoEmSegundos: 0,
             cronometro:0
-        }
-    },
-    //O computed monitora uma informação e conforme altera vai reagir de uma forma e atualizar
-    computed:{
-        tempoDecorrido(): string{
-            return new Date(this.tempoEmSegundos*1000).toISOString().substr(11,8)
-
-            /* 
-            Ao digitar Date().toISOString() vai retirnar essa data:
-            "2023-05-30T13:58:38.952Z"
-            Precisamos realmente desse valor: 13:58:38
-            Para isso nós usamos a função substr, que vai pegar a string a partir do 8 caracter até o 11
-            */
         }
     },
     
