@@ -6,6 +6,9 @@
     </div>
     <div class="column is-three-quarter">
       <FormularioCronometro/>
+      <div class="lista">
+        <TarefaCronometro/>
+      </div>
     </div>
   </main>
 </template>
@@ -14,16 +17,20 @@
 import { defineComponent } from 'vue';
 import BarraLateral from './components/BarraLateral.vue';
 import FormularioCronometro from './components/FormularioCronometro.vue';
-
+import TarefaCronometro from './components/TarefaCronometro.vue';
 export default defineComponent({
   name: 'App',
   components:{
     BarraLateral, 
-    FormularioCronometro
+    FormularioCronometro,
+    TarefaCronometro
   }
 });
 </script>
 
 <style>
 
+.lista{
+  padding: 1.25rem;
+}
 </style>
