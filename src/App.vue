@@ -5,9 +5,9 @@
       <BarraLateral/>
     </div>
     <div class="column is-three-quarter">
-      <FormularioCronometro/>
+      <FormularioCronometro @aoSalvarTarefa="salvarTarefa"/>
       <div class="lista">
-        <TarefaCronometro/>
+        <TarefaCronometro v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa"/><!--Para adicionar cada componente tarefa é preciso usar o "v-for"-->
       </div>
     </div>
   </main>
@@ -18,12 +18,25 @@ import { defineComponent } from 'vue';
 import BarraLateral from './components/BarraLateral.vue';
 import FormularioCronometro from './components/FormularioCronometro.vue';
 import TarefaCronometro from './components/TarefaCronometro.vue';
+import InterfaceTarefas from './interfaces/InterfaceTarefa'
+
 export default defineComponent({
   name: 'App',
   components:{
     BarraLateral, 
     FormularioCronometro,
     TarefaCronometro
+  },
+  data(){
+    return{
+      tarefas: [] as InterfaceTarefas[] //Criando uma lista de tarefas
+    }
+  },
+  methods:{
+    //criando a função de salvar a tarefa
+    salvarTarefa(tarefa: InterfaceTarefas){
+      this.tarefas.push(tarefa)//adicionando a tarefa na lista tarefas
+    }
   }
 });
 </script>

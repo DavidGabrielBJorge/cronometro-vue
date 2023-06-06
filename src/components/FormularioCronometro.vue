@@ -19,6 +19,7 @@ import { defineComponent } from 'vue'
 import TemporizadorControle from './TemporizadorControle.vue'
 export default defineComponent({
     name: 'FormularioCronometro',
+    emits: ['aoSalvarTarefa'],
     components:{
         TemporizadorControle
     },
@@ -30,8 +31,11 @@ export default defineComponent({
     methods:{
         //Ao terminar a contagem de uma ação deve armazenar seu tempo decorrido
         finalizarAcao(tempoDecorrido: number): void{
-            console.log('Tempo da ação: ', tempoDecorrido)
-            console.log('Descrição da tarefa: ', this.descricao)
+            //Quando alguém salvar uma tarefa o formulário vai emitit um evento, o App vai ouvir esse evento e vai adicionar na lista de tarefas
+            this.$emit('aoSalvarTarefa',{
+                duracaoEmSegundos: tempoDecorrido,
+                descricao: this.descricao
+            })
             this.descricao = ''//Limpa o input
         }
     }
