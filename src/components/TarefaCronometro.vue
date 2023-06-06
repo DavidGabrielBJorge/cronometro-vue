@@ -1,26 +1,28 @@
 <template>
-    <div class="box has-text-weight-bold">
+    <BoxCronometro>
         <div class="columns">
             <div class="column is-7">
-                {{ tarefa.descricao }}
+                {{ tarefa.descricao || 'Sem descrição' }}
             </div>
             <div class="column">
                 <CronometroAplicacao :tempoEmSegundos="tarefa.duracaoEmSegundos"/>
             </div>
-
         </div>
-    </div>
+
+    </BoxCronometro>
 </template>
 
 <script lang="ts">
 import { defineComponent,PropType } from 'vue';
 import CronometroAplicacao from './CronometroAplicacao.vue';
 import InterfaceTarefa from '../interfaces/InterfaceTarefa';
+import BoxCronometro from './BoxCronometro.vue'
 
 export default defineComponent({
     name: 'TarefaCronometro',
     components:{
-        CronometroAplicacao
+        CronometroAplicacao,
+        BoxCronometro
     },
     props:{
         tarefa:{
@@ -36,8 +38,3 @@ filhos serão estilizadas daquela forma específica
 
 Nesse caso apenas o box da tarefa cronometro terá background dessa cor
 -->
-<style scoped>
-.box{
-    background: #b4c4de;
-}
-</style>

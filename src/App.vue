@@ -6,9 +6,17 @@
     </div>
     <div class="column is-three-quarter">
       <FormularioCronometro @aoSalvarTarefa="salvarTarefa"/>
+
       <div class="lista">
         <TarefaCronometro v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa"/><!--Para adicionar cada componente tarefa é preciso usar o "v-for"-->
+
+        <BoxCronometro v-if="listaVazia"><!--O v-if verifica se a lista está vazia ou não para aparecer o box-->
+        Não há nenhuma tarefa cadastrada
+        </BoxCronometro>
       </div>
+      
+
+
     </div>
   </main>
 </template>
@@ -19,17 +27,25 @@ import BarraLateral from './components/BarraLateral.vue';
 import FormularioCronometro from './components/FormularioCronometro.vue';
 import TarefaCronometro from './components/TarefaCronometro.vue';
 import InterfaceTarefas from './interfaces/InterfaceTarefa'
+import BoxCronometro from './components/BoxCronometro.vue';
 
 export default defineComponent({
   name: 'App',
   components:{
     BarraLateral, 
     FormularioCronometro,
-    TarefaCronometro
+    TarefaCronometro,
+    BoxCronometro
   },
   data(){
     return{
       tarefas: [] as InterfaceTarefas[] //Criando uma lista de tarefas
+    }
+  },
+  computed:{
+    //verifica se a lista de tarefa está vazia
+    listaVazia() : boolean{
+      return this.tarefas.length === 0
     }
   },
   methods:{
