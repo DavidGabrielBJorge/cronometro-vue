@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div class="box formulario">
         <div class="columns">
             <!--Coluna do título de cada rodada cronometrada-->
             <div class="column is-8" role="form" aria-label="Formulário para a criação de um novo título de cronômetro">
@@ -42,4 +42,13 @@ export default defineComponent({
    
 })
 </script>
+
+<style>
+.formulario{
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+}
+
+</style>
+
 

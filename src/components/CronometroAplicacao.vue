@@ -1,6 +1,6 @@
 <template>
     <section>
-        <strong>{{ tempoDecorrido }}</strong><!--O Vue não vai enxergar o tempoDecorrido como uma função mas sim uma propriedade do componente porém calculado-->
+        <strong class="display">{{ tempoDecorrido }}</strong><!--O Vue não vai enxergar o tempoDecorrido como uma função mas sim uma propriedade do componente porém calculado-->
     </section>
 </template>
 
@@ -30,3 +30,10 @@ export default defineComponent({
     }
 })
 </script>
+
+<style scoped>
+
+.display{
+    color: var(--text-primary);
+}
+</style>

@@ -1,10 +1,10 @@
 <template>
   <!-- Usando a biblioteca Bulma para estilizar o site, nesse caso implica um layout de colunas, o "s-gapless" indica sem espaçamento entre essas colunas e "is-multiline" indica que permite múltiplas linhas-->
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline" :class="{ 'modo-escuro': modoEscuroAtivo }">
     <div class="column is-one-quarter">
-      <BarraLateral/>
+      <BarraLateral @temaAlterado="trocarTema"/>
     </div>
-    <div class="column is-three-quarter">
+    <div class="column is-three-quarter conteudo">
       <FormularioCronometro @aoSalvarTarefa="salvarTarefa"/>
 
       <div class="lista">
@@ -39,7 +39,8 @@ export default defineComponent({
   },
   data(){
     return{
-      tarefas: [] as InterfaceTarefas[] //Criando uma lista de tarefas
+      tarefas: [] as InterfaceTarefas[], //Criando uma lista de tarefas
+      modoEscuroAtivo: false 
     }
   },
   computed:{
@@ -52,6 +53,10 @@ export default defineComponent({
     //criando a função de salvar a tarefa
     salvarTarefa(tarefa: InterfaceTarefas){
       this.tarefas.push(tarefa)//adicionando a tarefa na lista tarefas
+    },
+    trocarTema(modoEscuroAtivo: boolean){
+      this.modoEscuroAtivo = modoEscuroAtivo
+
     }
   }
 });
@@ -61,5 +66,19 @@ export default defineComponent({
 
 .lista{
   padding: 1.25rem;
+}
+
+main{
+  --bg-primary: #fff;
+  --text-primary: #000;
+}
+
+main.modo-escuro{
+  --bg-primary: #263337;
+  --text-primary: #ddd;
+}
+
+.conteudo{
+  background-color: var(--bg-primary)
 }
 </style>
