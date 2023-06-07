@@ -1,7 +1,7 @@
 <template>
     <header>
         <h1>
-            <img src="../assets/logo.png" alt="">
+            <img src="../assets/cronometro.jpg" alt="">
         </h1>
     </header>
 </template>
