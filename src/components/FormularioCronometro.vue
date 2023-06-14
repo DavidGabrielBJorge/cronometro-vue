@@ -2,9 +2,24 @@
     <div class="box formulario">
         <div class="columns">
             <!--Coluna do título de cada rodada cronometrada-->
-            <div class="column is-8" role="form" aria-label="Formulário para a criação de um novo título de cronômetro">
+            <div class="column is-5" role="form" aria-label="Formulário para a criação de um novo título de cronômetro">
                 <input type="text" class="input" placeholder="Digite o título do seu cronômetro" v-model="descricao">
             </div>
+
+            <div class="column is-3">
+                        <div class="select">
+                            <select v-model="idProjeto">
+                                <option value="">Selecione o projeto</option>
+                                <option
+                                :value="projeto.id"
+                                v-for="projeto in projetos"
+                                :key="projeto.id"
+                                >
+                                {{ projeto.nome }}
+                                </option>
+                            </select>
+                        </div>
+                </div>
 
             <!--Coluna do temporizador-->
             <div class="column">
@@ -15,8 +30,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import TemporizadorControle from './TemporizadorControle.vue'
+import { useStore } from 'vuex'
+
+import { key } from '@/store'
+
 export default defineComponent({
     name: 'FormularioCronometro',
     emits: ['aoSalvarTarefa'],
@@ -25,7 +44,8 @@ export default defineComponent({
     },
     data(){
         return{
-            descricao: ''
+            descricao: '',
+            idProjeto: ''
         }
     },
     methods:{
@@ -34,9 +54,17 @@ export default defineComponent({
             //Quando alguém salvar uma tarefa o formulário vai emitit um evento, o App vai ouvir esse evento e vai adicionar na lista de tarefas
             this.$emit('aoSalvarTarefa',{
                 duracaoEmSegundos: tempoDecorrido,
-                descricao: this.descricao
+                descricao: this.descricao,
+                projeto: this.projetos.find(proj => proj.id == this.idProjeto)
             })
             this.descricao = ''//Limpa o input
+        }
+    },
+    //Para pegar o store, onde estão os projetos, é preciso usar o setup
+    setup(){
+        const store = useStore(key)
+        return{
+            projetos: computed(() => store.state.projetos)
         }
     }
    
