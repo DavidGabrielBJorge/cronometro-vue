@@ -1,7 +1,7 @@
 
 /* O "store" será responsável por definir e configurar um estado para a aplicação */
 import InterfaceProjeto from "@/interfaces/InterfaceProjeto";
-import { createStore, Store } from "vuex";
+import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { InjectionKey } from "vue";
 
 interface Estado{//A interface "Estado" representa um estado da aplicação
@@ -13,19 +13,19 @@ export const key: InjectionKey<Store<Estado>> = Symbol()
 
 export const store = createStore<Estado>({//Inicia o estado inicial
     state: {
-        projetos: [
-            {
+        projetos: []
+    },
+    mutations:{
+        'ADICIONA_PROJETO'(state, nomeProjeto: string){
+            const projeto = {
                 id: new Date().toISOString(),
-                nome: 'Estudar Português'
-            },
-            {
-                id: new Date().toISOString(),
-                nome: 'Estudar Química'
-            },
-            {
-                id: new Date().toISOString(),
-                nome: 'Estudar Matemática'
-            }
-        ]
+                nome: nomeProjeto
+            } as InterfaceProjeto
+            state.projetos.push(projeto)
+        }
     }
 })
+
+export function useStore(): Store<Estado>{
+    return vuexUseStore(key)
+}
