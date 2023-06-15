@@ -3,6 +3,7 @@
 import InterfaceProjeto from "@/interfaces/InterfaceProjeto";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { InjectionKey } from "vue";
+import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO } from "./tipo-mutacoes";
 
 interface Estado{//A interface "Estado" representa um estado da aplicação
     projetos: InterfaceProjeto[]
@@ -16,16 +17,19 @@ export const store = createStore<Estado>({//Inicia o estado inicial
         projetos: []
     },
     mutations:{
-        'ADICIONA_PROJETO'(state, nomeProjeto: string){
+        [ADICIONA_PROJETO](state, nomeProjeto: string){
             const projeto = {
                 id: new Date().toISOString(),
                 nome: nomeProjeto
             } as InterfaceProjeto
             state.projetos.push(projeto)
         },
-        'ALTERA_PROJETO'(state, projeto: InterfaceProjeto){
+        [ALTERA_PROJETO](state, projeto: InterfaceProjeto){
             const index = state.projetos.findIndex(proj => proj.id == projeto.id)
             state.projetos[index] = projeto//substituindo o antigo projeto para um novo
+        },
+        [EXCLUIR_PROJETO](state, id: string){
+            state.projetos = state.projetos.filter(proj => proj.id != id)
         }
     }
 })
