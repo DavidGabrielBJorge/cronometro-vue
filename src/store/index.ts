@@ -22,6 +22,10 @@ export const store = createStore<Estado>({//Inicia o estado inicial
                 nome: nomeProjeto
             } as InterfaceProjeto
             state.projetos.push(projeto)
+        },
+        'ALTERA_PROJETO'(state, projeto: InterfaceProjeto){
+            const index = state.projetos.findIndex(proj => proj.id == projeto.id)
+            state.projetos[index] = projeto//substituindo o antigo projeto para um novo
         }
     }
 })

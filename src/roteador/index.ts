@@ -22,7 +22,8 @@ const rotas: RouteRecordRaw[] =[
     {
         path:'/projetos/:id', 
         name:'Editar projeto',
-        component: FormularioProjeto
+        component: FormularioProjeto,
+        props: true//Vai pegar o id e vai injetar na view como se fosse uma propridade do componente
     },
 ]
 

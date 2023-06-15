@@ -25,6 +25,19 @@ import {  defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'ProjetosCronometro',
+    props:{
+        id: {
+            type: String
+        }
+    },
+    mounted(){
+        //Vai pegar o nome já criado do projeto e mostrar para a edição
+        if(this.id){
+            const projeto = this.store.state.projetos.find(proj => proj.id == this.id)//Procurar pelo id nos projetos
+            this.nomeProjeto = projeto?.nome || '' //Coloca o ? para indicar que projeto pode ser indefinido caso o nome não exista ou não seja encontrado, se for undefined a string será vazia
+
+        }
+    },
     data(){
         return{
             nomeProjeto: ''
@@ -32,15 +45,25 @@ export default defineComponent({
     },
     methods:{
         criar(){
-            /*
-            Método para criar o projeto de forma básica
-            const projeto: InterfaceProjeto ={
-                nome: this.nomeProjeto,
-                id: new Date().toISOString()
+            //Se tiver id mostra que deve ser editado
+            if(this.id){
+                this.store.commit('ALTERA_PROJETO',{
+                    id: this.id,
+                    nome: this.nomeProjeto
+                })
             }
-            this.projetos.push(projeto)
-            */
-           this.store.commit('ADICIONA_PROJETO', this.nomeProjeto)
+            else{
+                /*
+                Método para criar o projeto de forma básica
+                const projeto: InterfaceProjeto ={
+                    nome: this.nomeProjeto,
+                    id: new Date().toISOString()
+                }
+                this.projetos.push(projeto)
+                */
+                this.store.commit('ADICIONA_PROJETO', this.nomeProjeto)
+            }
+
            this.nomeProjeto = '';
            this.$router.push('/projetos')
 
