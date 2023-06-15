@@ -1,5 +1,5 @@
 # Site para cronometrar suas tarefas
-#### Link do projeto: [https://davidgabrielbjorge.github.io/SistemaDeLocadora/index.html](https://cronometro-vue-nine.vercel.app/)
+#### Link do projeto: https://cronometro-vue-nine.vercel.app/
 ## Objetivo do projeto
 #### Esse projeto é um simples site que cronometra cada tarefa criada pelo usuário. Esse site foi criado para estudar o básico de Vua. Sua publicação foi feita usando a plataforma Vercel.
 ## Tecnologias utilizadas:
