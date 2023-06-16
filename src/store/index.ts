@@ -3,10 +3,12 @@
 import InterfaceProjeto from "@/interfaces/InterfaceProjeto";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { InjectionKey } from "vue";
-import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO } from "./tipo-mutacoes";
+import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
+import { InterfaceNotificacao } from "@/interfaces/InterfaceNotificacao";
 
 interface Estado{//A interface "Estado" representa um estado da aplicação
-    projetos: InterfaceProjeto[]
+    projetos: InterfaceProjeto[],
+    notificacoes: InterfaceNotificacao[]
 }
 
 export const key: InjectionKey<Store<Estado>> = Symbol()
@@ -14,7 +16,8 @@ export const key: InjectionKey<Store<Estado>> = Symbol()
 
 export const store = createStore<Estado>({//Inicia o estado inicial
     state: {
-        projetos: []
+        projetos: [],
+        notificacoes:[]
     },
     mutations:{
         [ADICIONA_PROJETO](state, nomeProjeto: string){
@@ -30,6 +33,15 @@ export const store = createStore<Estado>({//Inicia o estado inicial
         },
         [EXCLUIR_PROJETO](state, id: string){
             state.projetos = state.projetos.filter(proj => proj.id != id)
+        },
+        [NOTIFICAR](state, novaNotificacao: InterfaceNotificacao){
+            novaNotificacao.id = new Date().getTime()
+            state.notificacoes.push(novaNotificacao)
+
+            //Para desaparecer a notificação
+            setTimeout(()=>{
+                state.notificacoes = state.notificacoes.filter(notificacao => notificacao.id != novaNotificacao.id)
+            },5000)
         }
     }
 })

@@ -19,8 +19,9 @@
 </template>
 
 <script lang="ts">
+import { TipoNotificacao } from '@/interfaces/InterfaceNotificacao';
 import { useStore } from '@/store'
-import { ALTERA_PROJETO, ADICIONA_PROJETO } from '@/store/tipo-mutacoes';
+import { ALTERA_PROJETO, ADICIONA_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes';
 import {  defineComponent } from 'vue';
 
 export default defineComponent({
@@ -65,6 +66,11 @@ export default defineComponent({
             }
 
            this.nomeProjeto = '';
+           this.store.commit(NOTIFICAR, {
+            titulo: 'Novo projeto salvo',
+            texto:'Projeto disponível',
+            tipo: TipoNotificacao.SUCESSO
+           })
            this.$router.push('/projetos')
 
         }

@@ -6,6 +6,7 @@
     </div>
     <div class="column is-three-quarter conteudo">
 
+      <NotificacoesCronometro></NotificacoesCronometro>
       <!--AQUI VAI A VIEW DAS Tarefas-->
       <router-view></router-view>
 
@@ -16,11 +17,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import BarraLateral from './components/BarraLateral.vue';
+import NotificacoesCronometro from './components/NotificacoesCronometro.vue'
 
 export default defineComponent({
   name: 'App',
   components:{
-    BarraLateral
+    BarraLateral,
+    NotificacoesCronometro
   },
   data(){
     return{
