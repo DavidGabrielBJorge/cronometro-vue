@@ -21,8 +21,11 @@
 <script lang="ts">
 import { TipoNotificacao } from '@/interfaces/InterfaceNotificacao';
 import { useStore } from '@/store'
-import { ALTERA_PROJETO, ADICIONA_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes';
+import { ALTERA_PROJETO, ADICIONA_PROJETO } from '@/store/tipo-mutacoes';
 import {  defineComponent } from 'vue';
+
+import { notificacaoMixin } from '@/mixins/notificar'
+
 
 export default defineComponent({
     name: 'ProjetosCronometro',
@@ -31,6 +34,7 @@ export default defineComponent({
             type: String
         }
     },
+    mixins: [notificacaoMixin],
     mounted(){
         //Vai pegar o nome já criado do projeto e mostrar para a edição
         if(this.id){
@@ -66,15 +70,14 @@ export default defineComponent({
             }
 
            this.nomeProjeto = '';
-           this.store.commit(NOTIFICAR, {
-            titulo: 'Novo projeto salvo',
-            texto:'Projeto disponível',
-            tipo: TipoNotificacao.SUCESSO
-           })
+           this.notificar(TipoNotificacao.SUCESSO, 'Excelente', 'Cadastrado com sucesso')
            this.$router.push('/projetos')
 
         }
+        
+        
     },
+
     setup(){
         const store  = useStore()
         return {
