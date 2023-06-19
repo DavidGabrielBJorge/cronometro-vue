@@ -23,8 +23,7 @@ import { TipoNotificacao } from '@/interfaces/InterfaceNotificacao';
 import { useStore } from '@/store'
 import { ALTERA_PROJETO, ADICIONA_PROJETO } from '@/store/tipo-mutacoes';
 import {  defineComponent } from 'vue';
-
-import { notificacaoMixin } from '@/mixins/notificar'
+import  useNotificador  from '@/hooks/notificador'
 
 
 export default defineComponent({
@@ -34,7 +33,7 @@ export default defineComponent({
             type: String
         }
     },
-    mixins: [notificacaoMixin],
+    
     mounted(){
         //Vai pegar o nome já criado do projeto e mostrar para a edição
         if(this.id){
@@ -80,8 +79,10 @@ export default defineComponent({
 
     setup(){
         const store  = useStore()
+        const { notificar } = useNotificador() //utiliza o hook para criar a notificação
         return {
-            store
+            store,
+            notificar
         }
     }
 })

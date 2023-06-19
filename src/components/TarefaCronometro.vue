@@ -1,8 +1,11 @@
 <template>
     <BoxCronometro>
         <div class="columns">
-            <div class="column is-7">
+            <div class="column is-4">
                 {{ tarefa.descricao || 'Sem descrição' }}
+            </div>
+            <div class="column is-3">
+                {{ tarefa.projeto?.nome || 'Não disponível' }}
             </div>
             <div class="column">
                 <CronometroAplicacao :tempoEmSegundos="tarefa.duracaoEmSegundos"/>
